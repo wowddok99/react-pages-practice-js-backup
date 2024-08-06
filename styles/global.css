@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "NotoSansKR-Regular";
+    src: url("../public/font/NotoSansKR-Regular.ttf");
+}
+
+@font-face {
+    font-family: "NotoSansKR-Bold";
+    src: url("../public/font/NotoSansKR-Bold.ttf");
+}
+
+@font-face {
+    font-family: "NotoSansKR-ExtraLight";
+    src: url("../public/font/NotoSansKR-ExtraLight.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing : border-box;
+}
+
+::placeholder {
+    font-family: "NotoSansKR-Regular";
+}
+ 
+body {
+    font-family: 'NotoSansKR-Regular', sans-serif;
+    font-weight: 500;
+} 
