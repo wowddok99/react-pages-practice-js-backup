@@ -35,7 +35,7 @@ import {
     IoMdStarIconActive,
     IoMdStarIconDisabled,
     CommentInputWrapper,
-    CommentInputHeader,
+    CommentInputContent,
     CommentInputFooter,
     CommentSubmitButton,
     CommentProfileIcon,
@@ -56,8 +56,8 @@ export default function BoardDetailUI(props){
                         <InfoWrapper>
                             <ProfileIcon src="/images/profile.png" />
                             <WriterCreatedAtWrapper>
-                                <Writer>{props.data?.fetchBoard?.writer}</Writer>
-                                <CreateAt>{props.data?.fetchBoard?.createdAt}</CreateAt>                                    
+                                <Writer>{props.boardData?.fetchBoard?.writer}</Writer>
+                                <CreateAt>{props.boardData?.fetchBoard?.createdAt}</CreateAt>                                    
                             </WriterCreatedAtWrapper>
                         </InfoWrapper>
                         <CardHeaderLogoWrapper>
@@ -66,9 +66,9 @@ export default function BoardDetailUI(props){
                         </CardHeaderLogoWrapper>
                     </CardHeaderWrapper>
                     <CardMainWrapper>
-                        <Subject>{props.data?.fetchBoard?.title}</Subject>
+                        <Subject>{props.boardData?.fetchBoard?.title}</Subject>
                         <Image></Image>
-                        <Contents>{props.data?.fetchBoard?.contents}</Contents>
+                        <Contents>{props.boardData?.fetchBoard?.contents}</Contents>
                         <YoutubeWrapper>
                             <Youtube></Youtube>
                         </YoutubeWrapper>
@@ -96,35 +96,39 @@ export default function BoardDetailUI(props){
                     </CommentSectionTitleWrapper>
                     <CommentInsertWrapper>
                         <StarWrapper>
-                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
-                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
-                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
-                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
-                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                            {[...Array(props.starRating)].map((_, index) => (
+                                <IoMdStarIconActive key={index} onClick={() => props.setStarRating(props.starRating-1)}></IoMdStarIconActive>
+                            ))}
+                            {[...Array(5-props.starRating)].map((_, index) => (
+                                <IoMdStarIconDisabled key={index} onClick={() => props.setStarRating(props.starRating+1)}></IoMdStarIconDisabled>
+                            ))}
                         </StarWrapper>
                         <CommentInputWrapper>
-                            <CommentInputHeader placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></CommentInputHeader>
-                            <CommentInputFooter>0/100</CommentInputFooter>
-                            <CommentSubmitButton>등록하기</CommentSubmitButton>
+                            <CommentInputContent type="text" maxLength="100" onInput={props.onInputCommentContent} placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></CommentInputContent>
+                            <CommentInputFooter>{props.commentContentLength}/{100}</CommentInputFooter>
+                            <CommentSubmitButton onClick={props.onClickSubmitComment}>등록하기</CommentSubmitButton>
                         </CommentInputWrapper>
                     </CommentInsertWrapper>
-                    <CommentDetailWrapper>
-                        <CommentProfileIcon src="/images/profile.png" />
-                        <CommentInfoWrapper>
-                            <CommentWriterWithStarWrapper>
-                                <CommentWriter>Ten</CommentWriter>
-                                <StarWrapper>
-                                    <IoMdStarIconActive></IoMdStarIconActive>
-                                    <IoMdStarIconActive></IoMdStarIconActive>
-                                    <IoMdStarIconActive></IoMdStarIconActive>
-                                    <IoMdStarIconActive></IoMdStarIconActive>
-                                    <IoMdStarIconDisabled></IoMdStarIconDisabled>
-                                </StarWrapper>
-                            </CommentWriterWithStarWrapper>
-                            <CommentContent>댓글 내용 테스트입니다.</CommentContent>
-                            <CommentCreatedAt>2024.08.08</CommentCreatedAt>
-                        </CommentInfoWrapper>
-                    </CommentDetailWrapper>
+                    {props.boardCommentData?.fetchBoardComments.map(el => (
+                        <CommentDetailWrapper key={el._id}>
+                            <CommentProfileIcon src="/images/profile.png" />
+                            <CommentInfoWrapper>
+                                <CommentWriterWithStarWrapper>
+                                    <CommentWriter>익명</CommentWriter>
+                                    <StarWrapper>
+                                        {[...Array(el.rating)].map((_, index) => (
+                                            <IoMdStarIconActive key={index}></IoMdStarIconActive>
+                                        ))}
+                                        {[...Array(5-el.rating)].map((_, index) => (
+                                            <IoMdStarIconDisabled key={index}></IoMdStarIconDisabled>
+                                        ))}
+                                    </StarWrapper>
+                                </CommentWriterWithStarWrapper>
+                                <CommentContent>{el.contents}</CommentContent>
+                                <CommentCreatedAt>{el.createdAt}</CommentCreatedAt>
+                            </CommentInfoWrapper>
+                        </CommentDetailWrapper>            
+                    ))}
                 </CommentFormWrapper>
             </MainWrapper>
         </PageLayout>
