@@ -24,7 +24,27 @@ import {
     CrudButtonGroupWrapper,
     ListButton,
     EditButton,
-    DeleteButton
+    DeleteButton,
+    CommentFormWrapper,
+    CommentSectionTitleWrapper,
+    CommentInsertWrapper,
+    CommentDetailWrapper,
+    FaRegCommentDotsIcon,
+    CommentLabel,
+    StarWrapper,
+    IoMdStarIconActive,
+    IoMdStarIconDisabled,
+    CommentInputWrapper,
+    CommentInputHeader,
+    CommentInputFooter,
+    CommentSubmitButton,
+    CommentProfileIcon,
+    CommentInfoWrapper,
+    CommentWriterWithStarWrapper,
+    CommentWriter,
+    CommentContent,
+    CommentCreatedAt
+    
 } from "./BoardDetail.styles"
 
 export default function BoardDetailUI(props){
@@ -69,6 +89,43 @@ export default function BoardDetailUI(props){
                     <EditButton onClick={props.onClickMoveToEditPage}>수정</EditButton>
                     <DeleteButton onClick={props.onClickDelete}>삭제</DeleteButton>
                 </CrudButtonGroupWrapper>
+                <CommentFormWrapper>
+                    <CommentSectionTitleWrapper>
+                        <FaRegCommentDotsIcon></FaRegCommentDotsIcon>
+                        <CommentLabel>댓글</CommentLabel>
+                    </CommentSectionTitleWrapper>
+                    <CommentInsertWrapper>
+                        <StarWrapper>
+                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                            <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                        </StarWrapper>
+                        <CommentInputWrapper>
+                            <CommentInputHeader placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></CommentInputHeader>
+                            <CommentInputFooter>0/100</CommentInputFooter>
+                            <CommentSubmitButton>등록하기</CommentSubmitButton>
+                        </CommentInputWrapper>
+                    </CommentInsertWrapper>
+                    <CommentDetailWrapper>
+                        <CommentProfileIcon src="/images/profile.png" />
+                        <CommentInfoWrapper>
+                            <CommentWriterWithStarWrapper>
+                                <CommentWriter>Ten</CommentWriter>
+                                <StarWrapper>
+                                    <IoMdStarIconActive></IoMdStarIconActive>
+                                    <IoMdStarIconActive></IoMdStarIconActive>
+                                    <IoMdStarIconActive></IoMdStarIconActive>
+                                    <IoMdStarIconActive></IoMdStarIconActive>
+                                    <IoMdStarIconDisabled></IoMdStarIconDisabled>
+                                </StarWrapper>
+                            </CommentWriterWithStarWrapper>
+                            <CommentContent>댓글 내용 테스트입니다.</CommentContent>
+                            <CommentCreatedAt>2024.08.08</CommentCreatedAt>
+                        </CommentInfoWrapper>
+                    </CommentDetailWrapper>
+                </CommentFormWrapper>
             </MainWrapper>
         </PageLayout>
     )
